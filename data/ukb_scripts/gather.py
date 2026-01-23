@@ -42,8 +42,4 @@ for biomarker, params in biomarkers.items():
                 -10: 0,  # less than one
             }
         )
-    if biomarker == "blood_pressure":
-        biomarker_df = biomarker_df.mean(axis=1).to_frame()
-        biomarker_df.columns = params["fids"]
-    
     build_biomarker(biomarker_df=biomarker_df, odir=odir / biomarker)
