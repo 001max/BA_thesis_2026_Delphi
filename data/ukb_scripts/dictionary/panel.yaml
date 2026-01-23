@@ -256,3 +256,14 @@ abdo_fat_long:
   visits:
     - img
     - 1st_repeat_img
+blood_pressure:
+  fids:
+    - 4080  #automatic systolic 
+    - 4079  #automatic diastolic 
+    - 93  #manual systolic
+    - 94  #manual diastolic
+  visits:
+    - init_assess
+    - 1st_repeat_assess
+    - img
+    - 1st_repeat_img
