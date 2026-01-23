@@ -63,7 +63,23 @@ def load_biomarker_df(
     markers = []
     for fid in fids:
         marker = load_fid(str(fid), preload=preload)
-        marker = index_by_visit(df=marker, visits=visits)
+        if fid in (4080, 4079):
+            marker = marker.groupby(
+                lambda c: int(c.split("_i")[1].split("_")[0]),
+                axis=1,
+            ).mean()
+            bp_visits_map = {
+                0: "init_assess",
+                1: "1st_repeat_assess",
+                2: "img",
+                3: "1st_repeat_img"
+            }
+            bp_visits = [bp_visits_map[i] for i in marker.columns]
+
+            marker = index_by_visit(df=marker, visits=bp_visits)
+        else:
+            marker = index_by_visit(df=marker, visits=visits)
+
         marker.name = str(fid)
         markers.append(marker)
     long_df = pd.concat(markers, axis=1)
